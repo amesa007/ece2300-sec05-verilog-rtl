@@ -7,9 +7,9 @@
 
 `include "ece2300/ece2300-misc.v"
 
-//''' ACTIVITY '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-// Include any other hardware modules as necessary
-//''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+`include "absdiff/GTComparator_4b_RTL.v"
+`include "absdiff/Mux2_4b_RTL.v"
+`include "absdiff/Subtractor_4b_RTL.v"
 
 module AbsDiff_4b_RTL
 (
