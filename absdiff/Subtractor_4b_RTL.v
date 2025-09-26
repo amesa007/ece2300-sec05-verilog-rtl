@@ -19,25 +19,12 @@ module Subtractor_4b_RTL
   //''' ACTIVITY '''''''''''''''''''''''''''''''''''''''''''''''''''''''''
   // Implement 4b subtractor using RTL
   //''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-  //:
-  //: `ECE2300_UNUSED( in0 );
-  //: `ECE2300_UNUSED( in1 );
-  //: `ECE2300_UNUSED( bin );
-  //: `ECE2300_UNDRIVEN( bout );
-  //: `ECE2300_UNDRIVEN( diff );
 
-  logic [4:0] result;
-  assign result = in0 - in1 - {3'b0,bin};
-  assign bout = result[4];
-  assign diff = result[3:0];
-
-  // logic [4:0] temp;
-  // always_comb begin
-  //   temp = in0 - in1;
-  //   temp = temp - {3'b0,bin};
-  //   bout = temp[4];
-  //   diff = temp[3:0];
-  // end
+  `ECE2300_UNUSED( in0 );
+  `ECE2300_UNUSED( in1 );
+  `ECE2300_UNUSED( bin );
+  `ECE2300_UNDRIVEN( bout );
+  `ECE2300_UNDRIVEN( diff );
 
 endmodule
 

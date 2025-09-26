@@ -17,12 +17,10 @@ module GTComparator_4b_RTL
   //''' ACTIVITY '''''''''''''''''''''''''''''''''''''''''''''''''''''''''
   // Implement 4b greater-than comparator using RTL
   //''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-  //:
-  //: `ECE2300_UNUSED( in0 );
-  //: `ECE2300_UNUSED( in1 );
-  //: `ECE2300_UNDRIVEN( gt );
 
-  assign gt = ( in0 > in1 );
+  `ECE2300_UNUSED( in0 );
+  `ECE2300_UNUSED( in1 );
+  `ECE2300_UNDRIVEN( gt );
 
 endmodule
 
