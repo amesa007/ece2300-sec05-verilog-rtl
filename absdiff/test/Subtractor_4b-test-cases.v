@@ -253,6 +253,19 @@ task test_case_8_random();
 endtask
 
 //------------------------------------------------------------------------
+// test_case_9_xprop
+//------------------------------------------------------------------------
+
+task test_case_9_xprop();
+  t.test_case_begin( "test_case_9_xprop" );
+
+  //     in0 in1 bin bo  diff
+  check( 'x, 'x, 'x, 'x, 'x );
+
+  t.test_case_end();
+endtask
+
+//------------------------------------------------------------------------
 // main
 //------------------------------------------------------------------------
 
@@ -267,6 +280,7 @@ initial begin
   if ((t.n <= 0) || (t.n == 6)) test_case_6_directed_small_bout();
   if ((t.n <= 0) || (t.n == 7)) test_case_7_directed_large_bout();
   if ((t.n <= 0) || (t.n == 8)) test_case_8_random();
+  if ((t.n <= 0) || (t.n == 9)) test_case_9_xprop();
 
   t.test_bench_end();
 end

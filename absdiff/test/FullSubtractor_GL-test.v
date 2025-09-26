@@ -103,6 +103,19 @@ module Top();
     t.test_case_end();
   endtask
 
+  //------------------------------------------------------------------------
+  // test_case_3_xprop
+  //------------------------------------------------------------------------
+
+  task test_case_3_xprop();
+    t.test_case_begin( "test_case_3_xprop" );
+
+    //     in0 in1 cin co  sum
+    check( 'x, 'x, 'x, 'x, 'x );
+
+    t.test_case_end();
+  endtask
+
   //----------------------------------------------------------------------
   // main
   //----------------------------------------------------------------------
@@ -112,6 +125,7 @@ module Top();
 
     if ((t.n <= 0) || (t.n == 1)) test_case_1_basic();
     if ((t.n <= 0) || (t.n == 2)) test_case_2_exhaustive();
+    if ((t.n <= 0) || (t.n == 3)) test_case_3_xprop();
 
     t.test_bench_end();
   end

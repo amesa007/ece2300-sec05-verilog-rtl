@@ -25,17 +25,31 @@ module Mux2_4b_RTL
   //: `ECE2300_UNDRIVEN( out );
 
   always_comb begin
-    // out = ( sel ) ? in1 : in0;
+
+    // must use default valu
+
+    out = 'x;
+
+    // absdif logic
+
     if ( sel == 0 )
       out = in0;
     else
       out = in1;
+
+    // explicit x-propagation
+
+    `ECE2300_XPROP( out, $isunknown(sel) );
+
     // if ( sel == 0 )
     //  out = in0;
     // else if ( sel == 1 )
     //   out = in1;
     // else
     //   out = 4'bx;
+
+    // out = ( sel ) ? in1 : in0;
+
   end
 
 endmodule

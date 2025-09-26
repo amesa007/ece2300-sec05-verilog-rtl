@@ -26,7 +26,7 @@ module Subtractor_4b_RTL
   //: `ECE2300_UNDRIVEN( bout );
   //: `ECE2300_UNDRIVEN( diff );
 
-  wire [4:0] result;
+  logic [4:0] result;
   assign result = in0 - in1 - {3'b0,bin};
   assign bout = result[4];
   assign diff = result[3:0];

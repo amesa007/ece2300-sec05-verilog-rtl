@@ -70,12 +70,20 @@ module AbsDiff_4b_RTL
     .diff (diff)
   );
 
-  // always_comb begin
-  //   if ( in0 > in1 )
-  //     diff = in0 - in1;
-  //   else
-  //     diff = in1 - in0;
-  // end
+  /*
+  always_comb begin
+
+    diff = 'x;
+
+    if ( in0 > in1 )
+      diff = in0 - in1;
+    else
+      diff = in1 - in0;
+
+    `ECE2300_XPROP( diff, $isunknown(in0) || $isunknown(in1) );
+
+  end
+  */
 
 endmodule
 

@@ -107,6 +107,36 @@ task test_case_3_random();
 endtask
 
 //------------------------------------------------------------------------
+// test_case_4_xprop
+//------------------------------------------------------------------------
+
+task test_case_4_xprop();
+  t.test_case_begin( "test_case_4_xprop" );
+
+  //     in0 in1 sel out
+  check( 'x, 'x, 'x, 'x );
+
+  `ifdef USE_RTL_XPROP_TESTS
+  check( '0, '0, 'x, 'x );
+  check( '0, '1, 'x, 'x );
+  check( '1, '0, 'x, 'x );
+  check( '1, '1, 'x, 'x );
+
+  check( '0, 'x, '0, '0 );
+  check( '0, 'x, '1, 'x );
+  check( '1, 'x, '0, '1 );
+  check( '1, 'x, '1, 'x );
+
+  check( 'x, '0, '0, 'x );
+  check( 'x, '0, '1, '0 );
+  check( 'x, '1, '0, 'x );
+  check( 'x, '1, '1, '1 );
+  `endif
+
+  t.test_case_end();
+endtask
+
+//------------------------------------------------------------------------
 // main
 //------------------------------------------------------------------------
 
@@ -116,6 +146,7 @@ initial begin
   if ((t.n <= 0) || (t.n == 1)) test_case_1_basic();
   if ((t.n <= 0) || (t.n == 2)) test_case_2_directed();
   if ((t.n <= 0) || (t.n == 3)) test_case_3_random();
+  if ((t.n <= 0) || (t.n == 4)) test_case_4_xprop();
 
   t.test_bench_end();
 end

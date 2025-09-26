@@ -147,6 +147,19 @@ task test_case_4_random();
 endtask
 
 //------------------------------------------------------------------------
+// test_case_5_xprop
+//------------------------------------------------------------------------
+
+task test_case_5_xprop();
+  t.test_case_begin( "test_case_5_xprop" );
+
+  //     in0 in1 gt
+  check( 'x, 'x, 'x );
+
+  t.test_case_end();
+endtask
+
+//------------------------------------------------------------------------
 // main
 //------------------------------------------------------------------------
 
@@ -157,6 +170,7 @@ initial begin
   if ((t.n <= 0) || (t.n == 2)) test_case_2_directed_small();
   if ((t.n <= 0) || (t.n == 3)) test_case_3_directed_large();
   if ((t.n <= 0) || (t.n == 4)) test_case_4_random();
+  if ((t.n <= 0) || (t.n == 5)) test_case_5_xprop();
 
   t.test_bench_end();
 end

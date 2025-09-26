@@ -34,6 +34,7 @@ module Top();
   // Include test cases
   //----------------------------------------------------------------------
 
+  `define USE_RTL_XPROP_TESTS
   `include "absdiff/test/AbsDiff_4b-test-cases.v"
 
 endmodule
