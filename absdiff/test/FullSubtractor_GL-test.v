@@ -2,8 +2,10 @@
 // FullSubtractor_GL-test
 //========================================================================
 
-`include "ece2300-test.v"
-`include "FullSubtractor_GL.v"
+`include "ece2300/ece2300-test.v"
+
+// ece2300-lint
+`include "absdiff/FullSubtractor_GL.v"
 
 module Top();
 
@@ -11,63 +13,55 @@ module Top();
   // Setup
   //----------------------------------------------------------------------
 
-  // verilator lint_off UNUSED
-  logic clk;
-  logic reset;
-  // verilator lint_on UNUSED
-
-  ece2300_TestUtils t( .* );
+  CombinationalTestUtils t();
 
   //----------------------------------------------------------------------
   // Instantiate design under test
   //----------------------------------------------------------------------
 
-  logic dut_in0;
-  logic dut_in1;
-  logic dut_bin;
-  logic dut_bout;
-  logic dut_diff;
+  logic in0;
+  logic in1;
+  logic bin;
+  logic bout;
+  logic diff;
 
   FullSubtractor_GL dut
   (
-    .in0  (dut_in0),
-    .in1  (dut_in1),
-    .bin  (dut_bin),
-    .bout (dut_bout),
-    .diff (dut_diff)
+    .in0  (in0),
+    .in1  (in1),
+    .bin  (bin),
+    .bout (bout),
+    .diff (diff)
   );
 
   //----------------------------------------------------------------------
   // check
   //----------------------------------------------------------------------
-  // All tasks start at #1 after the rising edge of the clock. So we
-  // write the inputs #1 after the rising edge, and check the outputs #1
-  // before the next rising edge.
+  // We set the inputs, wait 8 tau, check the outputs, wait 2 tau. Each
+  // check will take a total of 10 tau.
 
   task check
   (
-    input logic in0,
-    input logic in1,
-    input logic bin,
-    input logic bout,
-    input logic diff
+    input logic in0_,
+    input logic in1_,
+    input logic bin_,
+    input logic bout_,
+    input logic diff_
   );
     if ( !t.failed ) begin
+      t.num_checks += 1;
 
-      dut_in0 = in0;
-      dut_in1 = in1;
-      dut_bin = bin;
+      in0 = in0_;
+      in1 = in1_;
+      bin = bin_;
 
       #8;
 
-      if ( t.n != 0 ) begin
-        $display( "%3d: %b %b %b > %b %b", t.cycles,
-                dut_in0, dut_in1, dut_bin,
-                dut_bout, dut_diff );
-      end
+      if ( t.n != 0 )
+        $display( "%3d: %b %b %b > %b %b", t.cycles, in0, in1, bin, bout, diff );
 
-      `ECE2300_CHECK_EQ( dut_bout, bout );
-      `ECE2300_CHECK_EQ( dut_diff, diff );
+      `ECE2300_CHECK_EQ( bout, bout_ );
+      `ECE2300_CHECK_EQ( diff, diff_ );
 
       #2;
 
@@ -85,6 +79,7 @@ module Top();
     check( 0,  0,  0,  0,  0 );
     check( 1,  0,  0,  0,  1 );
 
+    t.test_case_end();
   endtask
 
   //----------------------------------------------------------------------
@@ -105,6 +100,7 @@ module Top();
     check( 1,  1,  0,  0,  0 );
     check( 1,  1,  1,  1,  1 );
 
+    t.test_case_end();
   endtask
 
   //----------------------------------------------------------------------
@@ -112,7 +108,7 @@ module Top();
   //----------------------------------------------------------------------
 
   initial begin
-    t.test_bench_begin( `__FILE__ );
+    t.test_bench_begin();
 
     if ((t.n <= 0) || (t.n == 1)) test_case_1_basic();
     if ((t.n <= 0) || (t.n == 2)) test_case_2_exhaustive();

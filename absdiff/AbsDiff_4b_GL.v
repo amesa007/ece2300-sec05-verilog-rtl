@@ -5,9 +5,9 @@
 `ifndef ABS_DIFF_4B_GL_V
 `define ABS_DIFF_4B_GL_V
 
-`include "GTComparator_4b_GL.v"
-`include "Mux2_4b_GL.v"
-`include "SubtractorRippleCarry_4b_GL.v"
+`include "absdiff/GTComparator_4b_GL.v"
+`include "absdiff/Mux2_4b_GL.v"
+`include "absdiff/SubtractorRippleCarry_4b_GL.v"
 
 module AbsDiff_4b_GL
 (
@@ -45,16 +45,20 @@ module AbsDiff_4b_GL
     .out (mux1_out)
   );
 
-  wire unused_bout;
+  wire bout;
 
   SubtractorRippleCarry_4b_GL sub
   (
     .in0  (mux0_out),
     .in1  (mux1_out),
     .bin  (1'b0),
-    .bout (unused_bout),
+    .bout (bout),
     .diff (diff)
   );
+
+  // Mark unused signals to avoid linting errors
+
+  `ECE2300_UNUSED( bout );
 
 endmodule
 

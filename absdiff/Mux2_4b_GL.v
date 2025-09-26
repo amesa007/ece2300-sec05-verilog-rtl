@@ -5,7 +5,7 @@
 `ifndef MUX2_4B_GL
 `define MUX2_4B_GL
 
-`include "Mux2_1b_GL.v"
+`include "absdiff/Mux2_1b_GL.v"
 
 module Mux2_4b_GL
 (

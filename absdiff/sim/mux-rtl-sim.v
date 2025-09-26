@@ -4,7 +4,7 @@
 // Author : Christopher Batten (Cornell)
 // Date   : September 27, 2024
 
-`include "Mux2_4b_RTL.v"
+`include "absdiff/Mux2_4b_RTL.v"
 
 //========================================================================
 // Top
@@ -16,17 +16,17 @@ module Top();
   // Instantiate mux
   //----------------------------------------------------------------------
 
-  logic [3:0] dut_in0;
-  logic [3:0] dut_in1;
-  logic       dut_sel;
-  logic [3:0] dut_out;
+  logic [3:0] in0;
+  logic [3:0] in1;
+  logic       sel;
+  logic [3:0] out;
 
   Mux2_4b_RTL mux
   (
-    .in0 (dut_in0),
-    .in1 (dut_in1),
-    .sel (dut_sel),
-    .out (dut_out)
+    .in0 (in0),
+    .in1 (in1),
+    .sel (sel),
+    .out (out)
   );
 
   //----------------------------------------------------------------------
@@ -37,14 +37,14 @@ module Top();
 
     // Process command line arguments
 
-    if ( !$value$plusargs( "in0=%b", dut_in0 ) )
-      dut_in0 = 4'b0000;
+    if ( !$value$plusargs( "in0=%b", in0 ) )
+      in0 = 4'b0000;
 
-    if ( !$value$plusargs( "in1=%b", dut_in1 ) )
-      dut_in1 = 4'b0000;
+    if ( !$value$plusargs( "in1=%b", in1 ) )
+      in1 = 4'b0000;
 
-    if ( !$value$plusargs( "sel=%b", dut_sel ) )
-      dut_sel = 1'b0;
+    if ( !$value$plusargs( "sel=%b", sel ) )
+      sel = 1'b0;
 
     // Advance time
 
@@ -52,10 +52,10 @@ module Top();
 
     // Display output
 
-    $display( "in0 = %b", dut_in0 );
-    $display( "in1 = %b", dut_in1 );
-    $display( "sel = %b", dut_sel );
-    $display( "out = %b", dut_out );
+    $display( "in0 = %b", in0 );
+    $display( "in1 = %b", in1 );
+    $display( "sel = %b", sel );
+    $display( "out = %b", out );
 
     $finish;
   end

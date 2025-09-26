@@ -2,8 +2,10 @@
 // Mux2_1b_GL-test
 //========================================================================
 
-`include "ece2300-test.v"
-`include "Mux2_1b_GL.v"
+`include "ece2300/ece2300-test.v"
+
+// ece2300-lint
+`include "absdiff/Mux2_1b_GL.v"
 
 module Top();
 
@@ -11,58 +13,51 @@ module Top();
   // Setup
   //----------------------------------------------------------------------
 
-  // verilator lint_off UNUSED
-  logic clk;
-  logic reset;
-  // verilator lint_on UNUSED
-
-  ece2300_TestUtils t( .* );
+  CombinationalTestUtils t();
 
   //----------------------------------------------------------------------
   // Instantiate design under test
   //----------------------------------------------------------------------
 
-  logic dut_in0;
-  logic dut_in1;
-  logic dut_sel;
-  logic dut_out;
+  logic in0;
+  logic in1;
+  logic sel;
+  logic out;
 
   Mux2_1b_GL dut
   (
-    .in0 (dut_in0),
-    .in1 (dut_in1),
-    .sel (dut_sel),
-    .out (dut_out)
+    .in0 (in0),
+    .in1 (in1),
+    .sel (sel),
+    .out (out)
   );
 
   //----------------------------------------------------------------------
   // check
   //----------------------------------------------------------------------
-  // All tasks start at #1 after the rising edge of the clock. So we
-  // write the inputs #1 after the rising edge, and check the outputs #1
-  // before the next rising edge.
+  // We set the inputs, wait 8 tau, check the outputs, wait 2 tau. Each
+  // check will take a total of 10 tau.
 
   task check
   (
-    input logic in0,
-    input logic in1,
-    input logic sel,
-    input logic out
+    input logic in0_,
+    input logic in1_,
+    input logic sel_,
+    input logic out_
   );
     if ( !t.failed ) begin
+      t.num_checks += 1;
 
-      dut_in0 = in0;
-      dut_in1 = in1;
-      dut_sel = sel;
+      in0 = in0_;
+      in1 = in1_;
+      sel = sel_;
 
       #8;
 
-      if ( t.n != 0 ) begin
-        $display( "%3d: %b %b %b > %b", t.cycles,
-                  dut_in0, dut_in1, dut_sel, dut_out );
-      end
+      if ( t.n != 0 )
+        $display( "%3d: %b %b %b > %b", t.cycles, in0, in1, sel, out );
 
-      `ECE2300_CHECK_EQ( dut_out, out );
+      `ECE2300_CHECK_EQ( out, out_ );
 
       #2;
 
@@ -80,6 +75,7 @@ module Top();
     check( 0,  0,  0,  0 );
     check( 0,  0,  1,  0 );
 
+    t.test_case_end();
   endtask
 
   //----------------------------------------------------------------------
@@ -100,6 +96,7 @@ module Top();
     check( 1,  1,  0,  1 );
     check( 1,  1,  1,  1 );
 
+    t.test_case_end();
   endtask
 
   //----------------------------------------------------------------------
@@ -107,7 +104,7 @@ module Top();
   //----------------------------------------------------------------------
 
   initial begin
-    t.test_bench_begin( `__FILE__ );
+    t.test_bench_begin();
 
     if ((t.n <= 0) || (t.n == 1)) test_case_1_basic();
     if ((t.n <= 0) || (t.n == 2)) test_case_2_exhaustive();

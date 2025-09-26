@@ -1,24 +1,30 @@
 //========================================================================
-// Subtractor_4b_RTL
+// GTComparator_4b_RTL
 //========================================================================
 
-`ifndef SUBTRACTOR_4B_RTL_V
-`define SUBTRACTOR_4B_RTL_V
+`ifndef GT_COMPARATOR_4B_V
+`define GT_COMPARATOR_4B_V
 
-module Subtractor_4b_RTL
+`include "ece2300/ece2300-misc.v"
+
+module GTComparator_4b_RTL
 (
   (* keep=1 *) input  logic [3:0] in0,
   (* keep=1 *) input  logic [3:0] in1,
-  (* keep=1 *) input  logic       bin,
-  (* keep=1 *) output logic       bout,
-  (* keep=1 *) output logic [3:0] diff
+  (* keep=1 *) output logic       gt
 );
 
   //''' ACTIVITY '''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-  // Implement 4b subtractor using RTL
+  // Implement 4b greater-than comparator using RTL
   //''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+  //:
+  //: `ECE2300_UNUSED( in0 );
+  //: `ECE2300_UNUSED( in1 );
+  //: `ECE2300_UNDRIVEN( gt );
+
+  assign gt = ( in0 > in1 );
 
 endmodule
 
-`endif /* SUBTRACTOR_4B_RTL_V */
+`endif /* GT_COMPARATOR_4B_RTL_V */
 

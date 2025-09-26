@@ -5,7 +5,7 @@
 `ifndef SUBTRACTOR_RIPPLE_CARRY_4B_GL_V
 `define SUBTRACTOR_RIPPLE_CARRY_4B_GL_V
 
-`include "FullSubtractor_GL.v"
+`include "absdiff/FullSubtractor_GL.v"
 
 module SubtractorRippleCarry_4b_GL
 (

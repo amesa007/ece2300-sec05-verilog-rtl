@@ -5,7 +5,8 @@
 `ifndef GT_COMPARATOR_4B_GL_V
 `define GT_COMPARATOR_4B_GL_V
 
-`include "GTComparator_1b_GL.v"
+`include "ece2300/ece2300-misc.v"
+`include "absdiff/GTComparator_1b_GL.v"
 
 module GTComparator_4b_GL
 (
@@ -45,21 +46,24 @@ module GTComparator_4b_GL
     .gt   (gt_tmp[1])
   );
 
-  wire unused_dout;
+  wire dout;
 
   GTComparator_1b_GL gt_comparator_0
   (
     .in0  (in0[0]),
     .in1  (in1[0]),
     .din  (done[0]),
-    .dout (unused_dout),
+    .dout (dout),
     .gt   (gt_tmp[0])
   );
-
 
   // Final OR gate
 
   or( gt, gt_tmp[0], gt_tmp[1], gt_tmp[2], gt_tmp[3] );
+
+  // Mark unused signals to avoid linting errors
+
+  `ECE2300_UNUSED( dout );
 
 endmodule
 
