@@ -15,14 +15,14 @@ module Mux2_4b_RTL
   (* keep=1 *) output logic [3:0] out
 );
 
-  //''' ACTIVITY '''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-  // Implement 4b mux using RTL
-  //''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+always_comb begin
+  out = 'x;
+  if ( sel == 0 )
+    out = in0;
+  if ( sel == 1)
+    out = in1;
+end
 
-  `ECE2300_UNUSED( in0 );
-  `ECE2300_UNUSED( in1 );
-  `ECE2300_UNUSED( sel );
-  `ECE2300_UNDRIVEN( out );
 
 endmodule
 

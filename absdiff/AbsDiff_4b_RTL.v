@@ -17,14 +17,27 @@ module AbsDiff_4b_RTL
   (* keep=1 *) input  logic [3:0] in1,
   (* keep=1 *) output logic [3:0] diff
 );
+always_comb begin
 
-  //''' ACTIVITY '''''''''''''''''''''''''''''''''''''''''''''''''''''''''
-  // Implement 4b absolute difference unit using RTL
-  //''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+  // must use default value
 
-  `ECE2300_UNUSED( in0 );
-  `ECE2300_UNUSED( in1 );
-  `ECE2300_UNDRIVEN( diff );
+  diff = 'x;
+
+  // absdiff logic
+
+  if ( in0 > in1 )
+    diff = in0 - in1;
+  else
+    diff = in1 - in0;
+
+  // explicit x-propagation
+
+    `ECE2300_XPROP( diff, $isunknown(in0) || $isunknown(in1) );
+
+end
+
+
+
 
 endmodule
 
